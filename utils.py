@@ -1,4 +1,4 @@
-#! /usr/bin/env python
+#encode:utf8
 
 import csv
 import itertools
@@ -23,7 +23,7 @@ def load_data(filename="data/reddit-comments-2015-08.csv", vocabulary_size=2000,
 
     # Read the data and append SENTENCE_START and SENTENCE_END tokens
     print("Reading CSV file...")
-    with open(filename, 'rt') as f:
+    with open(filename, 'rt',encoding="utf8") as f:
         reader = csv.reader(f, skipinitialspace=True)
         next(reader)
         # Split full comments into sentences

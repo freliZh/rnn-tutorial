@@ -76,10 +76,10 @@ if __name__ == '__main__':
     mnist = input_data.read_data_sets("MNIST_data/", one_hot=True)
 
 
-    train_xs,train_ys = mnist.train.next_batch(100)
-    print(train_xs.shape)
+    train_xs,train_ys = mnist.train.next_batch(1000)
+    test_xs, test_ys = mnist.train.next_batch(1000)
 
-    data = tf.placeholder(tf.float32, [None, train_xs.shape[0], train_xs.shape[1]])
+    data = tf.placeholder(tf.float32, [None, 10, 784])
     target = tf.placeholder(tf.float32, [None, train_ys.shape[1]])
     dropout = tf.placeholder(tf.float32)
     model = SequenceClassification(data, target, dropout)
@@ -87,12 +87,11 @@ if __name__ == '__main__':
     sess.run(tf.initialize_all_variables())
     for epoch in range(10):
         for _ in range(100):
-            batch = train_xs.sample(10)
-            print(batch)
+            batch_xs,batch_ys = mnist.train.next_batch(10)
             sess.run(model.optimize, {
-                data: batch.data, target: batch.target, dropout: 0.5})
+                data: batch_xs, target: batch_ys, dropout: 0.5})
         error = sess.run(model.error, {
-            data: test.data, target: test.target, dropout: 1})
+            data: test_xs, target: test_ys, dropout: 1})
         print('Epoch {:2d} error {:3.1f}%'.format(epoch + 1, 100 * error))
 
 

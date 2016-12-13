@@ -78,7 +78,7 @@ class ToySequenceData(object):
 
 # Parameters
 learning_rate = 0.01
-training_iters = 100000000
+training_iters = 1000000
 batch_size = 128
 display_step = 10
 
@@ -90,6 +90,7 @@ n_classes = 2 # linear sequence or not
 trainset = ToySequenceData(n_samples=1000, max_seq_len=seq_max_len)
 testset = ToySequenceData(n_samples=500, max_seq_len=seq_max_len)
 
+print(trainset)
 # tf Graph input
 x = tf.placeholder("float", [None, seq_max_len, 1])
 y = tf.placeholder("float", [None, n_classes])
